@@ -1,0 +1,22 @@
+{
+  "name": "pharmacy_bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for accounting of pills",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aleksandr Shevelev",
+  "license": "ISC",
+  "dependencies": {
+    "grammy": "^1.30.0",
+    "pg": "^8.13.1",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/pg": "^8.11.10",
+    "dotenv": "^16.4.7"
+  }
+}
