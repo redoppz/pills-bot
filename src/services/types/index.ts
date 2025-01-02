@@ -1,15 +1,21 @@
 import { ConversationFlavor } from '@grammyjs/conversations';
 import { Context, SessionFlavor } from 'grammy';
 
-export interface SessionData {
+export interface ISessionData {
   count: number;
+}
+
+export interface IPillData {
+  pillName: string;
+  pillCount: number;
+  pillCountPerDay: number;
 }
 
 export type MyContext = Context &
   ConversationFlavor &
-  SessionFlavor<SessionData>;
+  SessionFlavor<ISessionData>;
 
-export enum IdConversations {
+export enum Conversations {
   TakePillConversation = 'takePillConversation',
   CountPillConversation = 'countPillConversation',
   AddPillConversation = 'addPillConversation',
