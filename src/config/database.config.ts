@@ -1,6 +1,6 @@
-import { configDotenv } from 'dotenv';
-import { User } from '../entities/user.entity';
-import { Pill } from '../entities/pill.entity';
+import { configDotenv } from "dotenv";
+import { User } from "../entities/user.entity";
+import { Pill } from "../entities/pill.entity";
 
 configDotenv();
 

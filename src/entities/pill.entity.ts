@@ -6,8 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
-} from 'typeorm';
-import { User } from './user.entity';
+} from "typeorm";
+import { User } from "./user.entity";
 
 @Entity()
 export class Pill {
@@ -24,12 +24,12 @@ export class Pill {
   public countPerDay!: number;
 
   @CreateDateColumn({
-    name: 'created_at',
+    name: "created_at",
   })
   public createdAt!: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
+    name: "updated_at",
   })
   public updatedAt!: Date;
 
