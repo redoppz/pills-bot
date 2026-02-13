@@ -1,4 +1,3 @@
-import { DataSource } from "typeorm";
 import { CreateNewUserDto } from "../../types";
 import { User } from "../entities/user.entity";
 
@@ -6,6 +5,7 @@ export class UserRepository {
   constructor(private readonly dataSource: DataSource) {}
 
   public async createNewUser(dto: CreateNewUserDto): Promise<User> {
+    const prisma = new PrismaClient();
     const { telegramId, username, firstName, lastName } = dto;
     const result = await this.dataSource.query(
       `

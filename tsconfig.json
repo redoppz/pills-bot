@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "CommonJS",
+    "target": "es2023",
+    "module": "esnext",
     "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
     "strict": true,
     "strictPropertyInitialization": true,
     "skipLibCheck": true,
