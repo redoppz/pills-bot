@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "postgresql"
+  provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
@@ -14,28 +14,28 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   telegramId String
-  username String
-  firstName String
-  lastName String
-  pills Pill[]
-  createdAt DateTime
-  updatedAt DateTime
-  version Int
+  username   String
+  firstName  String
+  lastName   String
+  pills      Pill[]
+  createdAt  DateTime
+  updatedAt  DateTime
+  version    Int
 }
 
 model Pill {
-  id Int @id @default(autoincrement())
-  name String
-  allCount Int
+  id           Int      @id @default(autoincrement())
+  name         String
+  allCount     Int
   currentCount Int
-  countPerDay Int
-  form String
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-  isActive Boolean @default(false)
-  createdAt DateTime
-  updatedAt DateTime
-  version Int
+  countPerDay  Int
+  form         String
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int
+  isActive     Boolean  @default(false)
+  createdAt    DateTime
+  updatedAt    DateTime
+  version      Int
 }

@@ -1,6 +1,12 @@
-import { Pill } from "../../database/entities/pill.entity";
+import { Pill } from "../../../generated/prisma/client";
 import { PillRepository } from "../../database/repositories/pill.repository";
-import { AddNewPillDto, GetPillByNameDto } from "../../types";
+import {
+  AddNewPillDto,
+  EditOldPillDto,
+  GetPillByNameDto,
+  TakePillDto,
+} from "../../types";
+import { GetAllPillsDto } from "../../types/services.types";
 
 export class PillService {
   constructor(private readonly pillRepository: PillRepository) {}
@@ -9,9 +15,27 @@ export class PillService {
     await this.pillRepository.addNewPill(dto);
   }
 
+  public async getAllPills(dto: GetAllPillsDto): Promise<Pill[]> {
+    const pills = await this.pillRepository.getAllPills(dto);
+
+    return pills;
+  }
+
   public async getPillByName(dto: GetPillByNameDto): Promise<Pill | null> {
     const pill = await this.pillRepository.getPillByName(dto);
 
     return pill;
+  }
+
+  public async editOldPill(dto: EditOldPillDto): Promise<Pill> {
+    const editedPill = await this.pillRepository.editOldPill(dto);
+
+    return editedPill;
+  }
+
+  public async takePill(dto: TakePillDto): Promise<Pill> {
+    const takedPill = await this.pillRepository.takePill(dto);
+
+    return takedPill;
   }
 }

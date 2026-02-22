@@ -4,6 +4,7 @@ import help from "./handlers/commands/help.command";
 import { conversations, createConversation } from "@grammyjs/conversations";
 import { GetCountOfPillConversation } from "./handlers/conversations/get-count-of-pill.conversation";
 import { AddNewPillConversation } from "./handlers/conversations/add-new-pill.conversation";
+import { EditOldPillConversation } from "./handlers/conversations/edit-old-pill.conversation";
 import { BotContext } from "../types";
 
 export class BotManager {
@@ -12,6 +13,7 @@ export class BotManager {
   constructor(
     private readonly addNewPillConversation: AddNewPillConversation,
     private readonly getCountOfPillConversation: GetCountOfPillConversation,
+    private readonly editOldPillConversation: EditOldPillConversation,
   ) {
     this.bot = new Bot<BotContext>(process.env.TOKEN_BOT!);
     this.bot.use(conversations());
@@ -35,6 +37,7 @@ export class BotManager {
     this.bot.use(
       createConversation(this.addNewPillConversation.execute),
       createConversation(this.getCountOfPillConversation.execute),
+      createConversation(this.editOldPillConversation.execute),
     );
   }
 }

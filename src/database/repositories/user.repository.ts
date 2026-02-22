@@ -1,21 +1,24 @@
+import { User } from "../../../generated/prisma/client";
 import { CreateNewUserDto } from "../../types";
-import { User } from "../entities/user.entity";
+import { PrismaService } from "../prisma";
 
 export class UserRepository {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   public async createNewUser(dto: CreateNewUserDto): Promise<User> {
-    const prisma = new PrismaClient();
     const { telegramId, username, firstName, lastName } = dto;
-    const result = await this.dataSource.query(
-      `
-      INSERT INTO user (telegram_id, username, first_name, last_name)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *;
-      `,
-      [telegramId, username, firstName, lastName],
-    );
+    const createdUser = await this.prismaService.user.create({
+      data: {
+        telegramId: String(telegramId),
+        username,
+        firstName,
+        lastName,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        version: 1,
+      },
+    });
 
-    return result.rows[0];
+    return createdUser;
   }
 }

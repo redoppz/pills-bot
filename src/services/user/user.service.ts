@@ -1,4 +1,4 @@
-import { User } from "../../database/entities/user.entity";
+import { User } from "../../../generated/prisma/client";
 import { UserRepository } from "../../database/repositories/user.repository";
 import { CreateNewUserDto } from "../../types";
 

@@ -5,19 +5,24 @@ export class GetCountOfPillConversation {
   constructor(private readonly pillService: PillService) {}
 
   public async execute(
-    _conversation: ConversationContext,
+    conversation: ConversationContext,
     ctx: InternalContext,
   ) {
     const { id: userId } = ctx.from!;
     await ctx.reply("Введите лекарство, которое вас интересует: ");
-    const name = ctx.message?.text!;
-    const pill = await this.pillService.getPillByName({ userId, name });
+    const { message } = await conversation.wait();
+    const pillName = message?.text;
+
+    const pill = await this.pillService.getPillByName({
+      userId,
+      name: pillName!,
+    });
 
     if (pill) {
       const { allCount } = pill;
       await ctx.reply(`У тебя осталось ${allCount} лекарства`);
     } else {
-      await ctx.reply("Я не смог найти выбранное лекарство в твоих лекарствах");
+      await ctx.reply("Я не смог найти выбранное лекарство в твоих заметках");
     }
   }
 }
