@@ -11,7 +11,7 @@ import { GetAllPillsDto } from "../../types/services.types";
 export class PillService {
   constructor(private readonly pillRepository: PillRepository) {}
 
-  public async addNewPill(dto: AddNewPillDto) {
+  public async addNewPill(dto: AddNewPillDto): Promise<void> {
     await this.pillRepository.addNewPill(dto);
   }
 

@@ -1,5 +1,5 @@
 import { User } from "../../../generated/prisma/client";
-import { CreateNewUserDto } from "../../types";
+import { CreateNewUserDto, GetUserByTelegramIdDto } from "../../types";
 import { PrismaService } from "../prisma";
 
 export class UserRepository {
@@ -20,5 +20,16 @@ export class UserRepository {
     });
 
     return createdUser;
+  }
+
+  public async getUserByTelegramId(
+    dto: GetUserByTelegramIdDto,
+  ): Promise<User | null> {
+    const { telegramId } = dto;
+    const user = await this.prismaService.user.findFirst({
+      where: { telegramId: String(telegramId) },
+    });
+
+    return user;
   }
 }

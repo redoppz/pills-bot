@@ -13,6 +13,8 @@ export class EditOldPillConversation {
     conversation: ConversationContext,
     ctx: InternalContext,
   ) {
+    const id = ctx.from?.id!;
+
     await ctx.reply("Выбери лекарство: ");
     const { message: nameMessage } = await conversation.wait();
     const pillName = nameMessage?.text!;
@@ -26,7 +28,7 @@ export class EditOldPillConversation {
       const { message: countPerDayMessage } = await conversation.wait();
       const countPerDay = countPerDayMessage?.text!;
 
-      await this.pillService.editOldPill({ name: pillName, countPerDay });
+      await this.pillService.editOldPill({ id, name: pillName, countPerDay });
 
       await ctx.reply(`Ты будешь пить лекарство ${pillName} раз в день`);
     } else {
@@ -34,7 +36,7 @@ export class EditOldPillConversation {
       const { message: countMessage } = await conversation.wait();
       const allCount = countMessage?.text!;
 
-      await this.pillService.editOldPill({ name: pillName, allCount });
+      await this.pillService.editOldPill({ id, name: pillName, allCount });
 
       await ctx.reply(`Готово, внес. У тебя ${allCount} лекарства`);
     }

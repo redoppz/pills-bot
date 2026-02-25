@@ -8,6 +8,8 @@ export class AddNewPillConversation {
     conversation: ConversationContext,
     ctx: InternalContext,
   ) {
+    const userId = ctx.from?.id!;
+
     await ctx.reply("Напиши название в чат");
     const { message: nameMessage } = await conversation.wait();
 
@@ -26,6 +28,7 @@ export class AddNewPillConversation {
     const form = formMessage?.text;
 
     await this.pillService.addNewPill({
+      userId,
       name: pillName!,
       allCount: allCount!,
       countPerDay: countPerDay!,

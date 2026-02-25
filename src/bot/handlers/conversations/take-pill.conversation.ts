@@ -8,10 +8,12 @@ export class TakePillConversation {
     conversation: ConversationContext,
     ctx: InternalContext,
   ) {
+    const id = ctx.from?.id!;
+
     await ctx.reply("Введите лекарство, которое вас интересует: ");
     const { message: nameMessage } = await conversation.wait();
     const pillName = nameMessage?.text!;
 
-    this.pillService.takePill({ name: pillName });
+    this.pillService.takePill({ id, name: pillName });
   }
 }

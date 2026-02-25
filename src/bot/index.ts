@@ -1,16 +1,16 @@
 import { Bot } from "grammy";
-import start from "./handlers/commands/start.command";
-import help from "./handlers/commands/help.command";
 import { conversations, createConversation } from "@grammyjs/conversations";
 import { GetCountOfPillConversation } from "./handlers/conversations/get-count-of-pill.conversation";
 import { AddNewPillConversation } from "./handlers/conversations/add-new-pill.conversation";
 import { EditOldPillConversation } from "./handlers/conversations/edit-old-pill.conversation";
 import { BotContext } from "../types";
+import { MainCommand } from "./handlers/commands/main.command";
 
 export class BotManager {
   private readonly bot: Bot<BotContext>;
 
   constructor(
+    private readonly mainCommand: MainCommand,
     private readonly addNewPillConversation: AddNewPillConversation,
     private readonly getCountOfPillConversation: GetCountOfPillConversation,
     private readonly editOldPillConversation: EditOldPillConversation,
@@ -21,7 +21,7 @@ export class BotManager {
   }
 
   public start() {
-    this.bot.command("start", async (ctx) => await start(ctx));
+    this.bot.command("start", async (ctx) => await this.mainCommand.start(ctx));
   }
 
   private register() {
@@ -30,7 +30,7 @@ export class BotManager {
   }
 
   private registerCommands() {
-    this.bot.command("help", async (ctx) => await help(ctx));
+    this.bot.command("help", async (ctx) => await this.mainCommand.help(ctx));
   }
 
   private registerConversations() {

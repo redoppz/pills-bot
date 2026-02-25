@@ -1,34 +1,41 @@
 import { PillForm } from "./database.types";
 
-export class AddNewPillDto {
-  name!: string;
-  allCount!: string;
-  countPerDay!: string;
-  form!: PillForm;
-}
+type BaseUpdatePillDto = {
+  id: number;
+};
 
-export class GetAllPillsDto {
-  userId!: number;
-}
+export type AddNewPillDto = {
+  name: string;
+  allCount: string;
+  countPerDay: string;
+  form: PillForm;
+  userId: number;
+};
 
-export class GetPillByNameDto {
-  userId!: number;
-  name!: string;
-}
+export type GetAllPillsDto = {
+  userId: number;
+};
 
-export class EditOldPillDto {
-  name!: string;
+export type GetPillByNameDto = {
+  userId: number;
+  name: string;
+};
+
+export type EditOldPillDto = BaseUpdatePillDto & {
+  name: string;
   countPerDay?: string;
   allCount?: string;
-}
+};
 
-export class TakePillDto {
-  name!: string;
-}
+export type TakePillDto = BaseUpdatePillDto & {
+  name: string;
+};
 
-export class CreateNewUserDto {
-  telegramId!: number;
-  username!: string;
-  firstName!: string;
-  lastName!: string;
-}
+export type CreateNewUserDto = {
+  telegramId: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+};
+
+export type GetUserByTelegramIdDto = Pick<CreateNewUserDto, "telegramId">;

@@ -3,6 +3,7 @@ export {
   AddNewPillDto,
   CreateNewUserDto,
   EditOldPillDto,
+  GetUserByTelegramIdDto,
   GetPillByNameDto,
   TakePillDto,
 } from "./services.types";

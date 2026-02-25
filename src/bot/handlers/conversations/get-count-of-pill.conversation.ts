@@ -11,18 +11,20 @@ export class GetCountOfPillConversation {
     const { id: userId } = ctx.from!;
     await ctx.reply("Введите лекарство, которое вас интересует: ");
     const { message } = await conversation.wait();
-    const pillName = message?.text;
+    const pillName = message?.text!;
 
-    const pill = await this.pillService.getPillByName({
+    const pills = await this.pillService.getAllPills({
       userId,
-      name: pillName!,
     });
+    const foundedPill = pills.find((pill) => pill.name === pillName);
 
-    if (pill) {
-      const { allCount } = pill;
+    if (Boolean(foundedPill)) {
+      const { allCount } = foundedPill!;
       await ctx.reply(`У тебя осталось ${allCount} лекарства`);
     } else {
-      await ctx.reply("Я не смог найти выбранное лекарство в твоих заметках");
+      await ctx.reply(
+        `Я не смог найти выбранное лекарство в твоих заметках. Твои лекарства - ${pills.map((pill) => pill.name).join(", ")}`,
+      );
     }
   }
 }
