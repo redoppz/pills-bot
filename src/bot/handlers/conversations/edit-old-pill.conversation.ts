@@ -1,13 +1,23 @@
 import { ConversationContext, InternalContext } from "../../../types";
 import { PillService } from "../../../services/pill/pill.service";
+import { inject, injectable, registry } from "tsyringe";
 
 enum UserChoice {
   Count = "Количество лекарства",
   Time = "Время приема",
 }
 
+@injectable()
+@registry([
+  {
+    token: "PillService",
+    useClass: PillService,
+  },
+])
 export class EditOldPillConversation {
-  constructor(public readonly pillService: PillService) {}
+  constructor(
+    @inject("PillService") public readonly pillService: PillService,
+  ) {}
 
   public async execute(
     conversation: ConversationContext,

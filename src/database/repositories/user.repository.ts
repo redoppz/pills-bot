@@ -1,9 +1,19 @@
+import { inject, injectable, registry } from "tsyringe";
 import { User } from "../../../generated/prisma/client";
 import { CreateNewUserDto, GetUserByTelegramIdDto } from "../../types";
 import { PrismaService } from "../prisma";
 
+@injectable()
+@registry([
+  {
+    token: "PrismaService",
+    useClass: PrismaService,
+  },
+])
 export class UserRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @inject("PrismaService") private readonly prismaService: PrismaService,
+  ) {}
 
   public async createNewUser(dto: CreateNewUserDto): Promise<User> {
     const { telegramId, username, firstName, lastName } = dto;

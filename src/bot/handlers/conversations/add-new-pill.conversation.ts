@@ -1,8 +1,18 @@
 import { ConversationContext, InternalContext, PillForm } from "../../../types";
 import { PillService } from "../../../services/pill/pill.service";
+import { inject, injectable, registry } from "tsyringe";
 
+@injectable()
+@registry([
+  {
+    token: "PillService",
+    useClass: PillService,
+  },
+])
 export class AddNewPillConversation {
-  constructor(private readonly pillService: PillService) {}
+  constructor(
+    @inject("PillService") private readonly pillService: PillService,
+  ) {}
 
   public async execute(
     conversation: ConversationContext,

@@ -1,9 +1,19 @@
 import { Context } from "grammy";
 import { UserService } from "../../../services/user/user.service";
-import mainMenu from "../../menus/main.menu";
+import { mainMenu } from "../../menus/main.menu";
+import { inject, injectable, registry } from "tsyringe";
 
+@injectable()
+@registry([
+  {
+    token: "UserService",
+    useClass: UserService,
+  },
+])
 export class MainCommand {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    @inject("UserService") private readonly userService: UserService,
+  ) {}
 
   public async start(ctx: Context) {
     const { from } = ctx;

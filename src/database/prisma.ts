@@ -1,7 +1,9 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../../generated/prisma/client";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class PrismaService extends PrismaClient {
   constructor() {
     const connectionString = `${process.env.DATABASE_URL}`;

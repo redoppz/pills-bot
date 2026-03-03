@@ -8,4 +8,4 @@ const values = [
 ];
 const rows = values.map((label) => Keyboard.text(label));
 
-export default Keyboard.from([rows]);
+export const mainMenu = Keyboard.from([rows]);

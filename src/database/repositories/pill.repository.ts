@@ -1,3 +1,4 @@
+import { inject, injectable, registry } from "tsyringe";
 import { Pill } from "../../../generated/prisma/client";
 import {
   AddNewPillDto,
@@ -8,8 +9,17 @@ import {
 import { GetAllPillsDto } from "../../types/services.types";
 import { PrismaService } from "../prisma";
 
+@injectable()
+@registry([
+  {
+    token: "PrismaService",
+    useClass: PrismaService,
+  },
+])
 export class PillRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    @inject("PrismaService") private readonly prismaService: PrismaService,
+  ) {}
 
   public async addNewPill(dto: AddNewPillDto): Promise<void> {
     const { name, allCount, countPerDay, form, userId } = dto;

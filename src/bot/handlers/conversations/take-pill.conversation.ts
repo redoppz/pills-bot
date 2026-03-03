@@ -1,6 +1,8 @@
+import { injectable } from "tsyringe";
 import { PillService } from "../../../services/pill/pill.service";
 import { ConversationContext, InternalContext } from "../../../types";
 
+@injectable()
 export class TakePillConversation {
   constructor(private readonly pillService: PillService) {}
 
